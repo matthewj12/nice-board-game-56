@@ -10,10 +10,11 @@ ROUNDS_PER_GAME = 1
 # how many secret numbers each player is given
 # should be 3 as per Iyengar's specification
 NUM_OF_NUMS = 1
-# inclusive. Minimum number is 1.
-# must be >= PLAYER_COUNT * NUM_OF_NUMS
+# MAX_NUM is inclsuve. The minimum number is 1.
 # should be 20 as per Iyengar's specification
 MAX_NUM = 2
+
+assert MAX_NUM >= PLAYER_COUNT * NUM_OF_NUMS, 'bruh'
 
 # ------------------------------------------
 
