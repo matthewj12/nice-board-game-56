@@ -3,14 +3,17 @@ import random
 
 # ---------------- Constants ---------------
 
+# should be 4 as per Iyengar's specification
+PLAYER_COUNT = 2
 # should be set to 10 as per Iyengar's specification
 ROUNDS_PER_GAME = 1
-# inclusive. Minimum number is 1.
-# should be 20 as per Iyengar's specification
-MAX_NUM = 2
 # how many secret numbers each player is given
 # should be 3 as per Iyengar's specification
 NUM_OF_NUMS = 1
+# inclusive. Minimum number is 1.
+# must be >= PLAYER_COUNT * NUM_OF_NUMS
+# should be 20 as per Iyengar's specification
+MAX_NUM = 2
 
 # ------------------------------------------
 
@@ -42,11 +45,11 @@ class GameState():
 	current_round = None
 
 
-def getUniqueRandNums(num_of_nums):
+def getUniqueRandNums():
 	nums = [n+1 for n in range(MAX_NUM)]
 	random.shuffle(nums)
-
-	return tuple([nums[i] for i in range(num_of_nums)])
+	
+	return tuple([nums[i] for i in range(NUM_OF_NUMS)])
 
 
 def getGuessFromPlayer(p_obj, available_nums):
@@ -124,8 +127,6 @@ def playRound(gs):
 
 			
 def playGame():
-	rand_nums = getUniqueRandNums(MAX_NUM)
-
 	indx = 0
 	
 	p1 = Player()
@@ -156,6 +157,8 @@ def playGame():
 
 
 	while gs.current_round < ROUNDS_PER_GAME:
+		rand_nums = getUniqueRandNums()
+
 		p1.guessed_numbers = []
 		p1.initial_numbers = rand_nums[indx:indx+NUM_OF_NUMS]
 		indx += NUM_OF_NUMS
