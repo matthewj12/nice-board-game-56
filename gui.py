@@ -71,20 +71,16 @@ label = customtkinter.CTkLabel(master=app,
 
 label.place(relx=0.36, rely=0.5, anchor=tkinter.W)
 
-i = 0.25
-x = 0
-y = .6
-for x in range(20):
-    print(x)
-    if(x==10):
-        y= y+.1
-        i = .25
-    x = str(x)
-    button = customtkinter.CTkButton(master=app, text=x, command=button, width=60,height=60,)
-    button.place(relx=i, rely=y, anchor=tkinter.CENTER)
-    button.configure(state=tkinter.NORMAL)
-    i = i+.05
+input = customtkinter.CTkEntry(master=app,
+                               placeholder_text="enter here",
+                               width=200,
+                               height=80,
+                               border_width=2,
+                               corner_radius=8,
+                               font=('Times New Roman',25)
+                               )
 
+input.place(relx=0.37, rely=0.6, anchor=tkinter.W)
 
 #this is the start of the gui design where everything is layed out 
 label = customtkinter.CTkLabel(master=app,
@@ -143,7 +139,7 @@ label.place(relx=0.1, rely=0.5, anchor=tkinter.W)
 
 #below is the right side layout in the GUI
 start_button = customtkinter.CTkButton(master=app, text="Start", command=start,font=('Times New Roman',25))
-start_button.place(relx=0.5, rely=.8, anchor=tkinter.CENTER)
+start_button.place(relx=0.44, rely=.8, anchor=tkinter.CENTER)
 start_button.configure(state=tkinter.NORMAL)
 
 
