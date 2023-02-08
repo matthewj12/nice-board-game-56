@@ -10,7 +10,9 @@ import shutil
 import webbrowser
 from tkinter import messagebox
 
-numbers = "1 2 5 6"
+global haveNumbers
+
+haveNumbers = "1 2 5 6"
 grid = "0 0 0 0\n\n0 0 0 0\n\n0 0 0 0\n\n0 0 0 0"
 
 customtkinter.set_appearance_mode("Light")  # Modes: system (default), light, dark
@@ -24,6 +26,10 @@ customtkinter.set_widget_scaling(1.1)
 
 def start(): 
     #diabled start so that the user cannot click start twice and they can now click stop
+    varInput = customtkinter.CTkEntry.get(input)
+    global haveNumbers
+    haveNumbers = "Your Numbers"+haveNumbers+" "+varInput
+    labelNum.configure(text=haveNumbers)
     start_button.configure(state=tkinter.DISABLED)
 
 #change the display to be able to see better
@@ -41,15 +47,15 @@ mode_switch = customtkinter.CTkSwitch(master=app, text="Dark Mode", command=mode
 mode_switch.pack(padx=20, pady=10)
 mode_switch.place(relx=0.1, rely=.03, anchor=tkinter.CENTER)
 
-label = customtkinter.CTkLabel(master=app,
-                               text= "Your Set: "+numbers,
+labelNum = customtkinter.CTkLabel(master=app,
+                               text= "Your Set: "+haveNumbers,
                                width=200,
                                height=70,
                                fg_color=("white", "gray"),
                                corner_radius=8,
                                font=('Times New Roman',25))
 
-label.place(relx=0.38, rely=0.1, anchor=tkinter.W)
+labelNum.place(relx=0.38, rely=0.1, anchor=tkinter.W)
 
 label = customtkinter.CTkLabel(master=app,
                                text= grid,
