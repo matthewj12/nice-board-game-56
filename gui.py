@@ -77,6 +77,18 @@ label = customtkinter.CTkLabel(master=app,
 
 label.place(relx=0.37, rely=0.5, anchor=tkinter.W)
 
+#below is the right side layout in the GUI
+x = 0.3
+y = 0.53
+for i in range(20):
+    button = customtkinter.CTkButton(master=app, text=i, command=button,font=('Times New Roman',25))
+    button.place(relx=x, rely=y, anchor=tkinter.CENTER)
+    button.configure(state=tkinter.NORMAL)
+    x=x+0.01
+    if i == 10:
+        y=y+0.01
+
+
 #this is the start of the gui design where everything is layed out 
 label = customtkinter.CTkLabel(master=app,
                                text="Turns:",
