@@ -1,5 +1,7 @@
 import socket
 
+SERVER_PORT = 6100
+SERVER_IP = '192.168.0.101'
 
 def setupClientAndConnectToServer(ip_addr, port):
 	client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -16,5 +18,5 @@ def setupClientAndConnectToServer(ip_addr, port):
 
 
 if __name__ == '__main__':
-	setupClientAndConnectToServer('192.168.0.101', 6100)
+	setupClientAndConnectToServer(SERVER_IP, SERVER_PORT)
 
