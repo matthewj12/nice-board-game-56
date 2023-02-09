@@ -78,16 +78,16 @@ label = customtkinter.CTkLabel(master=app,
 label.place(relx=0.37, rely=0.5, anchor=tkinter.W)
 
 #below is the right side layout in the GUI
-x = 0.33
+x = 0.25
 y = 0.6
 for i in range(20):
     number_button = customtkinter.CTkButton(master=app, text=i+1, command=button,font=('Times New Roman',30), width=50, height=50)
     number_button.place(relx=x, rely=y, anchor=tkinter.CENTER)
     number_button.configure(state=tkinter.NORMAL)
     x=x+0.05
-    if i == 10:
-        y=y+0.05
-        x = 0.33
+    if i == 9:
+        y=y+0.1
+        x = 0.25
 
 
 #this is the start of the gui design where everything is layed out 
@@ -147,7 +147,7 @@ label.place(relx=0.1, rely=0.5, anchor=tkinter.W)
 
 #below is the right side layout in the GUI
 start_button = customtkinter.CTkButton(master=app, text="Start", command=start,font=('Times New Roman',25))
-start_button.place(relx=0.44, rely=.8, anchor=tkinter.CENTER)
+start_button.place(relx=0.46, rely=.8, anchor=tkinter.CENTER)
 start_button.configure(state=tkinter.NORMAL)
 
 
