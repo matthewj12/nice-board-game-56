@@ -40,7 +40,7 @@ def mode():
         customtkinter.set_appearance_mode("Light")
 
 def button():
-    text = button.cget("text")
+    text = number_button.cget("text")
     print(text)
 
 mode_switch = customtkinter.CTkSwitch(master=app, text="Dark Mode", command=mode, onvalue="on", offvalue="off")
