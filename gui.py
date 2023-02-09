@@ -75,18 +75,7 @@ label = customtkinter.CTkLabel(master=app,
                                corner_radius=8,
                                font=('Times New Roman',25))
 
-label.place(relx=0.36, rely=0.5, anchor=tkinter.W)
-
-input = customtkinter.CTkEntry(master=app,
-                               placeholder_text="enter here",
-                               width=200,
-                               height=80,
-                               border_width=2,
-                               corner_radius=8,
-                               font=('Times New Roman',25)
-                               )
-
-input.place(relx=0.37, rely=0.6, anchor=tkinter.W)
+label.place(relx=0.37, rely=0.5, anchor=tkinter.W)
 
 #this is the start of the gui design where everything is layed out 
 label = customtkinter.CTkLabel(master=app,
