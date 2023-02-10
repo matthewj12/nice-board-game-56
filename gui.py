@@ -70,12 +70,12 @@ label = customtkinter.CTkLabel(master=app,
                                corner_radius=8,
                                font=('Times New Roman',25))
 
-label.place(relx=0.37, rely=0.5, anchor=tkinter.W)
+label.place(relx=0.37, rely=0.6, anchor=tkinter.W)
 
 buttons = []
 numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
 x = 0.25
-y = 0.6
+y = 0.7
 for i in range(20):
     n = numbers[i]
     number_button = customtkinter.CTkButton(master=app, text=i+1, command=lambda button_press=i, number = n: button(button_press, number),font=('Times New Roman',30), width=50, height=50)
