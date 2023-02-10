@@ -42,7 +42,7 @@ mode_switch = customtkinter.CTkSwitch(master=app, text="Dark Mode", command=mode
 mode_switch.pack(padx=20, pady=10)
 mode_switch.place(relx=0.1, rely=.03, anchor=tkinter.CENTER)
 
-labelNum = customtkinter.CTkLabel(master=app,
+label = customtkinter.CTkLabel(master=app,
                                text= "Your Set: "+have_numbers,
                                width=200,
                                height=70,
@@ -50,7 +50,7 @@ labelNum = customtkinter.CTkLabel(master=app,
                                corner_radius=8,
                                font=('Times New Roman',25))
 
-labelNum.place(relx=0.38, rely=0.1, anchor=tkinter.W)
+label.place(relx=0.38, rely=0.1, anchor=tkinter.W)
 
 label = customtkinter.CTkLabel(master=app,
                                text= grid,
