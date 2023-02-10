@@ -10,9 +10,9 @@ import shutil
 import webbrowser
 from tkinter import messagebox
 
-global haveNumbers
+global have_numbers
 
-haveNumbers = "1 2 5 6"
+have_numbers = "1 2 5 6"
 grid = "0 0 0 0\n\n0 0 0 0\n\n0 0 0 0\n\n0 0 0 0"
 
 customtkinter.set_appearance_mode("Light")  # Modes: system (default), light, dark
@@ -27,9 +27,9 @@ customtkinter.set_widget_scaling(1.1)
 def start(): 
     #diabled start so that the user cannot click start twice and they can now click stop
     varInput = customtkinter.CTkEntry.get(input)
-    global haveNumbers
-    haveNumbers = "Your Numbers"+haveNumbers+" "+varInput
-    labelNum.configure(text=haveNumbers)
+    global have_numbers
+    have_numbers = "Your Numbers"+have_numbers+" "+varInput
+    labelNum.configure(text=have_numbers)
     start_button.configure(state=tkinter.DISABLED)
 
 #change the display to be able to see better
@@ -48,7 +48,7 @@ mode_switch.pack(padx=20, pady=10)
 mode_switch.place(relx=0.1, rely=.03, anchor=tkinter.CENTER)
 
 labelNum = customtkinter.CTkLabel(master=app,
-                               text= "Your Set: "+haveNumbers,
+                               text= "Your Set: "+have_numbers,
                                width=200,
                                height=70,
                                fg_color=("white", "gray"),
@@ -92,6 +92,14 @@ for i in range(20):
         y=y+0.1
         x = 0.25
 
+
+#disable the numbers they already have
+split = have_numbers.split()
+for check_n in numbers:
+    for check_split in split:
+        if check_n == check_split:
+            print(int(check_n))
+            buttons[int(check_n)].configure(state=tkinter.DISABLED)
 
 
 #this is the start of the gui design where everything is layed out 
