@@ -93,7 +93,6 @@ split = have_numbers.split()
 for check_n in numbers:
     for check_split in split:
         if check_n == check_split:
-            print(int(check_n))
             buttons[int(check_n)-1].configure(state=tkinter.DISABLED)
 
 
