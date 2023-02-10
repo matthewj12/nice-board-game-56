@@ -98,7 +98,7 @@ for check_n in numbers:
 
 #this is the start of the gui design where everything is layed out 
 label = customtkinter.CTkLabel(master=app,
-                               text="Turns:",
+                               text="Scores:",
                                width=100,
                                height=25,
                                fg_color=("white", "gray"),
