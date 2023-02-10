@@ -39,9 +39,9 @@ def mode():
     else:
         customtkinter.set_appearance_mode("Light")
 
-def button():
-    text = number_button.cget("text")
-    print(text)
+def button(button_press, number):
+    print(number)
+    buttons[button_press].configure(state=tkinter.DISABLED)
 
 mode_switch = customtkinter.CTkSwitch(master=app, text="Dark Mode", command=mode, onvalue="on", offvalue="off")
 mode_switch.pack(padx=20, pady=10)
@@ -77,17 +77,21 @@ label = customtkinter.CTkLabel(master=app,
 
 label.place(relx=0.37, rely=0.5, anchor=tkinter.W)
 
-#below is the right side layout in the GUI
+buttons = []
+numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
 x = 0.25
 y = 0.6
 for i in range(20):
-    number_button = customtkinter.CTkButton(master=app, text=i+1, command=button,font=('Times New Roman',30), width=50, height=50)
+    n = numbers[i]
+    number_button = customtkinter.CTkButton(master=app, text=i+1, command=lambda button_press=i, number = n: button(button_press, number),font=('Times New Roman',30), width=50, height=50)
     number_button.place(relx=x, rely=y, anchor=tkinter.CENTER)
     number_button.configure(state=tkinter.NORMAL)
+    buttons.append(number_button)
     x=x+0.05
     if i == 9:
         y=y+0.1
         x = 0.25
+
 
 
 #this is the start of the gui design where everything is layed out 
