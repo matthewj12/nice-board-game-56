@@ -12,7 +12,9 @@ from tkinter import messagebox
 
 global have_numbers
 
+#from the server
 have_numbers = "1 2 5 6"
+#array
 grid = "0 0 0 0\n\n0 0 0 0\n\n0 0 0 0\n\n0 0 0 0"
 
 customtkinter.set_appearance_mode("Light")  # Modes: system (default), light, dark
@@ -24,14 +26,6 @@ app.geometry("1500x700")
 app.title("Superset Me")
 customtkinter.set_widget_scaling(1.1)
 
-def start(): 
-    #diabled start so that the user cannot click start twice and they can now click stop
-    varInput = customtkinter.CTkEntry.get(input)
-    global have_numbers
-    have_numbers = "Your Numbers"+have_numbers+" "+varInput
-    labelNum.configure(text=have_numbers)
-    start_button.configure(state=tkinter.DISABLED)
-
 #change the display to be able to see better
 def mode():
     if (mode_switch.get() == "on"):
@@ -42,6 +36,7 @@ def mode():
 def button(button_press, number):
     print(number)
     buttons[button_press].configure(state=tkinter.DISABLED)
+
 
 mode_switch = customtkinter.CTkSwitch(master=app, text="Dark Mode", command=mode, onvalue="on", offvalue="off")
 mode_switch.pack(padx=20, pady=10)
@@ -99,7 +94,7 @@ for check_n in numbers:
     for check_split in split:
         if check_n == check_split:
             print(int(check_n))
-            buttons[int(check_n)].configure(state=tkinter.DISABLED)
+            buttons[int(check_n)-1].configure(state=tkinter.DISABLED)
 
 
 #this is the start of the gui design where everything is layed out 
@@ -155,13 +150,6 @@ label = customtkinter.CTkLabel(master=app,
                                font=('Times New Roman',25))
                                
 label.place(relx=0.1, rely=0.5, anchor=tkinter.W)
-
-
-#below is the right side layout in the GUI
-start_button = customtkinter.CTkButton(master=app, text="Start", command=start,font=('Times New Roman',25))
-start_button.place(relx=0.46, rely=.8, anchor=tkinter.CENTER)
-start_button.configure(state=tkinter.NORMAL)
-
 
 label = customtkinter.CTkLabel(master=app,
                                text="Wins",
