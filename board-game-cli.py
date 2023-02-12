@@ -69,15 +69,16 @@ class GameState():
 		print()
 
 
-def getUniqueRandNums(used_nums):
-	nums = [n+1 for n in range(MAX_NUM)]
+available_nums = [n+1 for n in range(MAX_NUM)]
+random.shuffle(available_nums)
 
-	for n in used_nums:
-		nums.remove(n)
+def getUniqueRandNums():
+	global available_nums
 
-	random.shuffle(nums)
-	
-	return nums[0:NUM_OF_NUMS]
+	to_return = available_nums[:NUM_OF_NUMS]
+	available_nums = available_nums[NUM_OF_NUMS:]
+
+	return to_return
 
 
 def getGuessFromPlayer(p_obj, available_nums):
@@ -212,8 +213,6 @@ def main():
 			while True:
 				pass
 		
-		already_assigned = []
-
 		# This is the socket that listens for incoming connections from clients. This is NOT the socket that sends/receives data to/from clients.
 		server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		# The empty string is a symbolic placeholder value representing the IP address of the current machine.
@@ -225,8 +224,7 @@ def main():
 			c = Connection(ip_addr=conn_info[0], port=conn_info[1], sock=sock)
 
 			p = Player()
-			p.initial_numbers = getUniqueRandNums(already_assigned)
-			already_assigned.extend(p.initial_numbers)
+			p.initial_numbers = getUniqueRandNums()
 			client_id = str(client_counter)
 			client_counter += 1
 
