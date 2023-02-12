@@ -1,7 +1,12 @@
-import random
+import random, socket, threading, pickle
+import time
 
 
 # ---------------- Constants ---------------
+
+# This can be any port over 1024 that's available on the the server computer and isn't blocked by the network's firewall.
+SERVER_PORT = 6100
+PACKET_SIZE = 99999 # bytes
 
 # should be 4 as per Iyengar's specification
 PLAYER_COUNT = 2
@@ -9,21 +14,32 @@ PLAYER_COUNT = 2
 ROUNDS_PER_GAME = 1
 # how many secret numbers each player is given
 # should be 3 as per Iyengar's specification
-NUM_OF_NUMS = 1
+NUM_OF_NUMS = 3
 # MAX_NUM is inclsuve. The minimum number is 1.
 # should be 20 as per Iyengar's specification
-MAX_NUM = 2
+MAX_NUM = 20
 
 assert MAX_NUM >= PLAYER_COUNT * NUM_OF_NUMS, 'bruh'
 
 # ------------------------------------------
 
-class Player():
+class Connection():
 	# string representing an IPv4 address (e.g., '10.34.1.203')
-	player_ip_addr = None
-	# the Python Socket object used to send data to and receive data from this player
+	ip_addr = None
+	# integer
+	port = None
+	# the Python Socket object used to send/receive data to/from this player
 	sock = None
-	# string uniquely identifying a Player object that the player enters (if they enter a username that's already being used by another player, they will get an error message)
+
+	def __init__(self, ip_addr, port, sock):
+		self.ip_addr = ip_addr
+		self.port = port
+		self.sock = sock
+
+
+class Player():
+	# is a string (need to change name to reflect this)
+	id_num = None
 	username = None
 	# tuple of length 3
 	initial_numbers = None
@@ -36,7 +52,7 @@ class Player():
 
 
 class GameState():
-	# tuple of Player objects
+	# dictionary of player objects
 	players = None
 	# tuple of length 4 containing Player objects
 	player_turn_order = None 
@@ -45,19 +61,31 @@ class GameState():
 	# integer between 1 and 10 inclusive (or 0 and 9 inclusive)
 	current_round = None
 
+	def printIt(self):
+		print()
+		print('turn: ' + str(self.turn))
+		print('current round: ' + str(self.current_round))
+		print('players: ' + ''.join([p.username + ', ' for p in self.players.values()]))
+		print()
+
+
+available_nums = [n+1 for n in range(MAX_NUM)]
+random.shuffle(available_nums)
 
 def getUniqueRandNums():
-	nums = [n+1 for n in range(MAX_NUM)]
-	random.shuffle(nums)
-	
-	return tuple([nums[i] for i in range(NUM_OF_NUMS)])
+	global available_nums
+
+	to_return = available_nums[:NUM_OF_NUMS]
+	available_nums = available_nums[NUM_OF_NUMS:]
+
+	return to_return
 
 
 def getGuessFromPlayer(p_obj, available_nums):
 	# Make a deep copy of available_nums
 	guessable_nums = [n for n in available_nums]
 	for n in p_obj.initial_numbers:
-		# Players aren't allowed to guess their own numbers. That wouldn't make sense and would screw up the game and would probably also be pretty cringe 🤢.
+		# Players aren't allowed to guess their own numbers. That wouldn't make sense and would screw up the game.
 		if n in guessable_nums:
 			guessable_nums.remove(n)
 
@@ -79,6 +107,7 @@ def isSupersetOf(a, b):
 
 	return True
 
+
 def playerXHasWon(gs, x):
 	for p in gs.players:
 		if p.username != x.username and not isSupersetOf(x.guessed_numbers, p.initial_numbers):
@@ -88,8 +117,7 @@ def playerXHasWon(gs, x):
 		
 
 def playRound(gs):
-	# Counting needs to start at one for non computer science plebeian simpletons. 😈
-	print(f"------ STARTING ROUND {gs.current_round+1} ------")
+	print(f"------ STARTING ROUND {gs.current_round} ------")
 	
 	for p in gs.players:
 		s = ''.join((f"{n}, " for n in p.initial_numbers))
@@ -126,35 +154,116 @@ def playRound(gs):
 		if p.username != winner.username:
 			p.points += 10
 
+
+
+def main():
+	# This function is called by each client.
+	# ip_addr is None for players who aren't playing as the server. For the server player, it is set to their IP address since we already know it.
+	def clientThread(server_ip_addr):
+		if server_ip_addr == None:
+			server_ip_addr = input("Enter the server's IP address: ")
+
+		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		sock.connect((server_ip_addr, SERVER_PORT))
+
+		# Get our id from the server. This is the only time we send data that isn't a serialized GameState object. The reason we're sending/receiving only the username is because sending the game state would be pointless as the client would have no way to know which player object belongs to it.
+		our_id = bytes.decode(sock.recv(PACKET_SIZE))
+		# This is discarded by the server
+		sock.send(str.encode('I received my id. Thanks.'))
+
+		# change the username of the Player object corresponding to us.
+		recv_data = sock.recv(PACKET_SIZE)
+		gs = pickle.loads(recv_data)
+		gs.players[our_id].username = input('tell me username now: ')
+		sock.send(pickle.dumps(gs))
+
+		# the rest of the code in this function is just for testing purposes.
+		us = gs.players[our_id]
+		print(f"{us.username}'s numbers: {''.join([str(n) + ', ' for n in us.initial_numbers])}")
+
+		while True:
+			pass
+
+
+
+
+	# Only one of these threads runs on the server.
+	def serverParentThread():
+		# gs stands for "game state"
+		gs = GameState()
+		gs.turn = 0
+		gs.current_round = 1
+		gs.players = {}
+		client_counter = 0
+
+		# serverMainThread() spawns one of these threads for each new client.
+		def serverChildThread(conn, player_id): # conn = Connection object
+			nonlocal gs
+
+			conn.sock.send(str.encode(player_id))
+			# The return value of recv() is unused. We need to call it anyways for synchronization purposes.
+			conn.sock.recv(PACKET_SIZE)
+			conn.sock.send(pickle.dumps(gs))
+			updated_gs = conn.sock.recv(PACKET_SIZE)
+			time.sleep(0.1)
+			print('server received updated game state')
+			gs = pickle.loads(updated_gs)
+
+			# the rest of the code in this function is just for testing purposes.
+			while True:
+				pass
+		
+		# This is the socket that listens for incoming connections from clients. This is NOT the socket that sends/receives data to/from clients.
+		server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		# The empty string is a symbolic placeholder value representing the IP address of the current machine.
+		server_socket.bind(('', SERVER_PORT))
+		server_socket.listen(5)
+
+		while len(gs.players) < PLAYER_COUNT:
+			sock, conn_info = server_socket.accept()
+			c = Connection(ip_addr=conn_info[0], port=conn_info[1], sock=sock)
+
+			p = Player()
+			p.initial_numbers = getUniqueRandNums()
+			client_id = str(client_counter)
+			client_counter += 1
+
+			gs.players[client_id] = p
+
+			t = threading.Thread(target=serverChildThread, args=(c, client_id))
+			t.start()
+
+		def playersWithNoUsername():
+			count = 0
+
+			for p in gs.players.values():
+				if p.username == None:
+					count += 1
 			
-def playGame():
-	indx = 0
-	
-	p1 = Player()
-	p1.username = 'Matthew T.'
-	p1.points = 0
+			return count
 
-	p2 = Player()
-	p2.username = 'Jordan Z.'
-	p2.points = 0
+		# wait until every player has entered their username
+		while playersWithNoUsername() > 0:
+			pass
 
-	# p3 = Player()
-	# p3.username = 'Lindsey C.'
-	# p3.initial_numbers = get3RandNums()
-	# p3.points = 0
-	# p3.guessed_numbers = []
 
-	# p4 = Player()
-	# p4.username = 'Daniel M.'
-	# p4.initial_numbers = get3RandNums()
-	# p4.points = 0
-	# p4.guessed_numbers = []
+		# the rest of the code in this function is just for testing purposes.
+		gs.printIt()
 
-	gs = GameState()
-	gs.turn = 0
-	gs.current_round = 0
-	gs.players = (p1, p2)
-	gs.player_turn_order = (p1, p2)
+
+	our_ip_addr = socket.gethostbyname(socket.gethostname())
+	is_server = input('Do you want to play as the server? (y/n): ') == 'y'
+
+	if is_server:
+		print(f"server's IP address: {our_ip_addr}")
+		t = threading.Thread(target=serverParentThread, args=())
+		t.start()
+
+	clientThread(our_ip_addr if is_server else None)
+
+
+	# Terminate early because I don't know what will happen if we don't because I haven't modified the rest of the code for networked multiplayer.
+	quit()
 
 
 	while gs.current_round < ROUNDS_PER_GAME:
@@ -191,4 +300,4 @@ def playGame():
 
 
 if __name__ == '__main__':
-	playGame()
+	main()
