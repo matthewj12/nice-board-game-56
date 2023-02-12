@@ -1,14 +1,6 @@
 #!/usr/bin/python3
 import tkinter #you do need tkinter and customtkinter
 import customtkinter
-import os #this allows you to use the command line to change the date
-import subprocess #this allows you to run and stop the program without using os
-import datetime #this allows you to get the system date and time
-import time #this allows you to use "after" to call the date_time method and update the date and time
-import glob #for compressing the zip files to import into jupyter hub
-import shutil
-import webbrowser
-from tkinter import messagebox
 
 global have_numbers
 
