@@ -5,8 +5,6 @@ import customtkinter
 customtkinter.set_appearance_mode("Light")  # Modes: system (default), light, dark
 customtkinter.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
 
-
-
 #create CTk window like you do with the Tk window
 app = customtkinter.CTk()  
 app.geometry("1500x700")
