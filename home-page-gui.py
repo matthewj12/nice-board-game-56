@@ -21,7 +21,7 @@ label = customtkinter.CTkLabel(master=app,
 
 label.place(relx=0.3, rely=0.1, anchor=tkinter.W)
 
-label = customtkinter.CTkLabel(master=app,
+label_player_one = customtkinter.CTkLabel(master=app,
                                text= "1: ",
                                width=100,
                                height=25,
@@ -29,9 +29,9 @@ label = customtkinter.CTkLabel(master=app,
                                corner_radius=8,
                                font=('Times New Roman',25))
 
-label.place(relx=0.4, rely=0.2, anchor=tkinter.W)
+label_player_one.place(relx=0.4, rely=0.2, anchor=tkinter.W)
 
-label = customtkinter.CTkLabel(master=app,
+label_player_two = customtkinter.CTkLabel(master=app,
                                text= "2:",
                                width=100,
                                height=25,
@@ -39,9 +39,9 @@ label = customtkinter.CTkLabel(master=app,
                                corner_radius=8,
                                font=('Times New Roman',25))
 
-label.place(relx=0.4, rely=0.3, anchor=tkinter.W)
+label_player_two.place(relx=0.4, rely=0.3, anchor=tkinter.W)
 
-label = customtkinter.CTkLabel(master=app,
+label_player_three = customtkinter.CTkLabel(master=app,
                                text= "3:",
                                width=100,
                                height=25,
@@ -49,9 +49,9 @@ label = customtkinter.CTkLabel(master=app,
                                corner_radius=8,
                                font=('Times New Roman',25))
 
-label.place(relx=0.4, rely=0.4, anchor=tkinter.W)
+label_player_three.place(relx=0.4, rely=0.4, anchor=tkinter.W)
 
-label = customtkinter.CTkLabel(master=app,
+label_player_four = customtkinter.CTkLabel(master=app,
                                text= "4:",
                                width=100,
                                height=25,
@@ -59,6 +59,6 @@ label = customtkinter.CTkLabel(master=app,
                                corner_radius=8,
                                font=('Times New Roman',25))
 
-label.place(relx=0.4, rely=0.5, anchor=tkinter.W)
+label_player_four.place(relx=0.4, rely=0.5, anchor=tkinter.W)
 
 app.mainloop()
