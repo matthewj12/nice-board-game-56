@@ -32,6 +32,7 @@ class SampleApp(tk.Tk):
 
         buttons = []
         numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
+        ip_address = str(getIPaddr())
         client_enter_ip = ""
         player_one = ""
         player_two = ""
