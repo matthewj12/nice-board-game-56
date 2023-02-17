@@ -1,3 +1,6 @@
+from networking import *
+
+
 try:
     import tkinter as tk                # python 3
     from tkinter import font as tkfont  # python 3
@@ -24,11 +27,13 @@ class SampleApp(tk.Tk):
         have_numbers = "1 2 5 6"
         #array
         grid_fill = []
+        #make the grid read in areas of four, like n%4 to know which x belongs to which person
         grid = ["X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X"]
 
         buttons = []
         numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
         ip_address = "ip"
+        ip_address = "123:456:65"       #str(getIPaddr())
         client_enter_ip = ""
         player_one = ""
         player_two = ""
