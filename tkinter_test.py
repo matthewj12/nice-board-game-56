@@ -208,10 +208,13 @@ class gamePage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-
+        global have_numbers
+        have_numbers_add = have_numbers
         def button(button_press, number):
             print(number)
             buttons[button_press]["state"] = tk.DISABLED
+            have_numbers = have_numbers_add+" "+str(number)
+            label_have_numbers["text"] = "Your Set: "+have_numbers
 
         label_have_numbers = tk.Label(self,
                                text= "Your Set: "+have_numbers,
@@ -243,14 +246,6 @@ class gamePage(tk.Frame):
             elif i == 11:
                 rowi=rowi+1
                 col = 2
-
-        #label_guess = tk.Label(self,
-                               #text= "pick a number to guess",
-                               #width=5,
-                               #height=2,
-                               #font=('Times New Roman',25))
-
-        #label_guess.grid(row=3, column=1)
 
         #creating the buttons
         col = 0
