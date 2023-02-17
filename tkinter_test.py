@@ -222,14 +222,14 @@ class gamePage(tk.Frame):
         rowi = 1
         for i in range(16):
             n = grid[i]
-            label_grid = tk.Label(self, text="X", font=('Times New Roman',30), width=2, height=1, state = tk.NORMAL)
+            label_grid = tk.Label(self, text=".", font=('Times New Roman',30), width=2, height=1, state = tk.NORMAL)
             label_grid.grid(row = rowi, column = col)
+            if rowi == col-1:
+                label_grid["bg"] = "green"
             grid_fill.append(label_grid)
             col=col+1
+            #color the grid
 
-            if str(i) == label_grid.cget("text"):
-                print(str(i) + label_grid.cget("text"))
-                label_grid["fg"] = "green"
             if i == 3:
                 rowi=rowi+1
                 col = 2
@@ -261,7 +261,7 @@ class gamePage(tk.Frame):
                 rowi=rowi+1
                 col = 0
 
-        #disable the numbers they already have
+        #disable the button numbers they already have
         split = have_numbers.split()
         for check_n in numbers:
             for check_split in split:
@@ -276,7 +276,6 @@ class gamePage(tk.Frame):
 
         button_restart.grid(row = 8, column = 9)
 
-        #this is the start of the gui design where everything is layed out 
         label_scores = tk.Label(self,
                                text="Scores:",
                                width=6,
