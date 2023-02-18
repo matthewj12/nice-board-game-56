@@ -1,6 +1,6 @@
 from networking import *
 
-
+#todo make an array that holds your numbers and converts it into a line of strings
 try:
     import tkinter as tk                # python 3
     from tkinter import font as tkfont  # python 3
@@ -24,7 +24,6 @@ class SampleApp(tk.Tk):
         global grid
         global grid_fill
         #from the server
-        have_numbers = "1 2 5 6"
         #array
         grid_fill = []
         #make the grid read in areas of four, like n%4 to know which x belongs to which person
@@ -51,7 +50,6 @@ class SampleApp(tk.Tk):
         container.grid_columnconfigure(0, weight=10)
 
         self.frames = {}
-        for F in (StartPage, PageOne, PageTwo, gamePage):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
@@ -78,14 +76,11 @@ class StartPage(tk.Frame):
         label.pack(side="top", fill="x", pady=10)
 
         button1 = tk.Button(self, text="Host", height = 3, width = 20, font=('Times New Roman',30),
-                            command=lambda: controller.show_frame("PageOne"))
         button2 = tk.Button(self, text="Client", height = 3, width = 20, font=('Times New Roman',30),
-                            command=lambda: controller.show_frame("PageTwo"))
         button1.pack()
         button2.pack()
 
 
-class PageOne(tk.Frame):
 
     def __init__(self, parent, controller):
         global ip_address
@@ -143,7 +138,6 @@ class PageOne(tk.Frame):
         button_restart.grid(row = 6, column = 3)
 
 
-class PageTwo(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -191,7 +185,6 @@ class PageTwo(tk.Frame):
                             width=10,
                             height=2,
                             font=('Times New Roman',25),
-                            command=lambda: controller.show_frame("gamePage"))
         
         label.grid(row=0, column=3)
         entry_ip.grid(row=0, column=4)
@@ -203,7 +196,6 @@ class PageTwo(tk.Frame):
         button_restart.grid(row = 6, column = 3)
         button_ready.grid(row = 6, column = 4)
 
-class gamePage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -214,7 +206,6 @@ class gamePage(tk.Frame):
             print(number)
             buttons[button_press]["state"] = tk.DISABLED
             have_numbers = have_numbers_add+" "+str(number)
-            label_have_numbers["text"] = "Your Set: "+have_numbers
 
         label_have_numbers = tk.Label(self,
                                text= "Your Set: "+have_numbers,
