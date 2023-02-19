@@ -18,6 +18,7 @@ class Player():
 	rounds_won = 0
 	# integer. Applies throughout all 10 rounds in the game. 
 	points = 0
+	my_ip = None
 
 
 class GameState():
