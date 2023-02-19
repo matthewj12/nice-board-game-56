@@ -102,8 +102,6 @@ class HostPage(tk.Frame):
         
 		tk.Frame.__init__(self, parent)
 
-		hostServerInitConnect()
-
 		self.controller = controller
         
 		label = tk.Label(self, text="This is Your IP: "+getIPaddr(), font=('Times New Roman',50))
@@ -144,14 +142,23 @@ class HostPage(tk.Frame):
 							font=('Times New Roman',25),
 							command=lambda: controller.show_frame("StartPage"))
 		
+		button_Ready= tk.Button(self, text="Ready",
+							width=10,
+							height=2,
+							font=('Times New Roman',25),
+							command=hosting)
+		
 		label.grid(row=0, column=3)
 		label_announce.grid(row = 1, column = 3)
 		label_player_one.grid(row = 2, column = 2)
 		label_player_two.grid(row = 3, column = 2)
 		label_player_three.grid(row = 4, column = 2)
 		label_player_four.grid(row = 5, column = 2)
-		button_restart.grid(row = 6, column = 3)
+		button_restart.grid(row = 6, column = 2)
+		button_Ready.grid(row = 6, column = 4)
 
+def hosting():
+	hostServerInitConnect()
 
 class ClientPage(tk.Frame):
 
