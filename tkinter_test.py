@@ -224,19 +224,19 @@ class GameStartPage(tk.Frame):
         Connection(client_enter_ip, 6100, getIPaddr())
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        global have_numbers
-        have_numbers_add = have_numbers
+        
         def button(button_press, number):
             #getGuessFromPlayer(number)
             print(number)
-            sendGameState(client_enter_ip, 6100, 99999, )
+            #sendGameState(client_enter_ip, 6100, 99999, )
             buttons[button_press]["state"] = tk.DISABLED
-            have_numbers = have_numbers_add+" "+str(number)
+            global have_numbers
+            have_numbers = have_numbers+ " "+str(number)
             label_have_numbers["text"] = "Your Set: "+ have_numbers
 
         label_have_numbers = tk.Label(self,
                                text= "Your Set: "+have_numbers,
-                               width=14,
+                               width=30,
                                height=2,
                                font=('Times New Roman',25))
 
