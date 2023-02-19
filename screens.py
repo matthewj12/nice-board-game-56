@@ -6,7 +6,6 @@ from tkinter_test import *
 # Splitting each function into its own file creates circular dependency errors, so I put them all in this one file instead.
 
 class RoundInProgressScreen(customtkinter.CTkFrame):
-	gamePage(tk.Frame)
 	def __init__(self, parent, controller, gs):
 		customtkinter.CTkFrame.__init__(self, parent)
 
