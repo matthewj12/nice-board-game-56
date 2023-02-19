@@ -215,6 +215,7 @@ class ClientPage(tk.Frame):
 class loadIP:
     def __init__(self, ip):
         client_enter_ip = ip
+        Connection(client_enter_ip, 6100, getIPaddr())
 
 class GameStartPage(tk.Frame):
 
@@ -228,6 +229,7 @@ class GameStartPage(tk.Frame):
         def button(button_press, number):
             #getGuessFromPlayer(number)
             print(number)
+            sendGameState(client_enter_ip, 6100, 99999, )
             buttons[button_press]["state"] = tk.DISABLED
             have_numbers = have_numbers_add+" "+str(number)
             label_have_numbers["text"] = "Your Set: "+ have_numbers

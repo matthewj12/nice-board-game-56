@@ -4,7 +4,6 @@ from networking import *
 from boardgamestuff import *
 
 import tkinter
-import customtkinter
 
 '''
 To make this code work with regular tkinter instead of customtkinter (which is pretty much just a wrapper around tkinter providing some custom made, pre-themed widgets), make the following replacements:
@@ -21,12 +20,11 @@ Replacements for SampleObj:
 dest_ip = None
 dest_port = None
 
-class RootCtkObj(customtkinter.CTk):
+class RootCtkObj(tkinter.Tk):
 	def __init__(self, *args, **kwargs):
 		# calls the customtkinter.CTk object's constructor function
 		super().__init__()
 
-		container = customtkinter.CTkFrame(self)
 		container.pack(side="top", fill="both", expand=True)
 		
 		# By passing this GameState object into every frame, we can have a unified backend state throughout every screen entire GUI. Python is pass-by-reference, so any changes made to gs within a frame class's conscructor will be refleted in this here object.
