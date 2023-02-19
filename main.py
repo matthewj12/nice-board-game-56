@@ -31,7 +31,7 @@ class RootCtkObj(tkinter.Tk):
 		gs = GameState()
 		for x in range(PLAYER_COUNT) : # create a player object for each player give them unique numbers
 			p = Player()
-			p.initial_numbers = p.getUniqueRandNums()
+			p.initial_numbers = getUniqueRandNums()
 			p.id_num = x
 			gs.player_turn_order.insert(x,p)
 

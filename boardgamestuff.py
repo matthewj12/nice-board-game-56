@@ -24,7 +24,7 @@ class GameState():
 	# dictionary of player objects
 	#players = None
 	# list of length 4 containing Player objects
-	player_turn_order = None 
+	player_turn_order = []
 	# index refering to a plyer object in player_turn_order whose turn it currently is. Its "their turn" while we're waiting for them to guess a number.
 	turn = 0
 	# integer hbetween 1 and 10 inclusive (or 0 and 9 inclusive)
