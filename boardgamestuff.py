@@ -116,8 +116,8 @@ def playRound(gs):
 		gs.turn = (gs.turn + 1) % len(gs.players)
 
 	print(f"\n{winner.username} has won the round. Congratulations to played who played and gave it their all! Until next time...")
-	print(f"{winner.username} gets {sum(winner.guessed_numbers)} points (Awesome!). Everyone else gets 10 points (Sad!).")
-	winner.points += sum(winner.guessed_numbers)
+	print(f"{winner.username} gets {len(winner.guessed_numbers)} points (Awesome!). Everyone else gets 10 points (Sad!).")
+	winner.points += len(winner.guessed_numbers)
 
 	# Everyone gets some points because everyone is a winner!
 	for p in gs.players:
