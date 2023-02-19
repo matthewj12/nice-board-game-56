@@ -1,7 +1,9 @@
 from screens import *
+#from screens import *
 from constants import *
 from networking import *
 from boardgamestuff import *
+from tkinter_test import *
 import tkinter
 
 '''
@@ -36,13 +38,17 @@ class RootCtkObj(tkinter.Tk):
 		# The constructors (__init__ functions) of each class in screens.py is where the other half of the game logic will occurr. When players press keys and hit enter or click buttons, the game state object gs must be updated accordingly.
 
 		self.frames = {}
-		for F in (MainMenuScreen, RoundInProgressScreen, RoundOverScreen, GameOverScreen):
-			frame = F(container, self, gs)
-			self.frames[F] = frame
-			frame.grid(row=0, column=0, sticky=tkinter.NSEW)
+		for F in (StartPage, HostPage, ClientPage, GameStartPage):
+			page_name = F.__name__
+			frame = F(parent=container, controller=self)
+			self.frames[page_name] = frame
 
-		self.show_frame(MainMenuScreen)
+			# put all of the pages in the same location;
+			# the one on the top of the stacking order
+			# will be the one that is visible.
+			frame.grid(row=0, column=0, sticky="nsew")
 
+		self.show_frame("StartPage")
 	def show_frame(self, cont):
 		# select the frame from the list of all frames.
 		frame = self.frames[cont]
