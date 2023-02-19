@@ -1,6 +1,6 @@
 import socket, pickle, subprocess
 from constants import *
-
+from boardgamestuff import *
 clientcounter = 0
 #we use this to connect each time we want to send or receive something
 class Connection():
