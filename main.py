@@ -39,7 +39,6 @@ class RootCtkObj(tkinter.Tk):
 		# This is where the code that's currently in the "playGame" function in "board-game-cli.py" (This file no longer exists in the repository. Refer to previous committs to see it) needs to go.
 		# We will use functions from boardgamestuff.py to implement this, but the actual top-level of the game lives here.
 		# The constructors (__init__ functions) of each class in screens.py is where the other half of the game logic will occurr. When players press keys and hit enter or click buttons, the game state object gs must be updated accordingly.
-
 		self.frames = {}
 		for F in (StartPage, HostPage, ClientPage, GameStartPage):
 			page_name = F.__name__
