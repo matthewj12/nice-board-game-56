@@ -4,6 +4,7 @@ from networking import *
 
 '''
 This module contains classes and functions comprising the "backend" of the "Super Set Me!" video game's program. That is, the stuff relating to the actual board game being played. This is the "business" logic, if you will.
+This is where the random numbers and users info is located
 '''
 
 class Player():
