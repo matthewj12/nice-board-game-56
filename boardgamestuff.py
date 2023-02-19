@@ -29,7 +29,7 @@ class GameState():
 	# index refering to a plyer object in player_turn_order whose turn it currently is. Its "their turn" while we're waiting for them to guess a number.
 	turn = 0
 	# integer hbetween 1 and 10 inclusive (or 0 and 9 inclusive)
-	current_round = None
+	current_round = 0
 	host_ip = None
 	host_port= None
 
