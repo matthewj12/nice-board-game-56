@@ -2,7 +2,6 @@ from screens import *
 from constants import *
 from networking import *
 from boardgamestuff import *
-
 import tkinter
 
 '''
