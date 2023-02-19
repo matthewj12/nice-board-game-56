@@ -25,11 +25,15 @@ class RootCtkObj(tkinter.Tk):
 		# calls the customtkinter.CTk object's constructor function
 		super().__init__()
 
-		container = tkinter.Frame(self)
-		container.pack(side="top", fill="both", expand=True)
+		#container.pack(side="top", fill="both", expand=True)
 		
 		# By passing this GameState object into every frame, we can have a unified backend state throughout every screen entire GUI. Python is pass-by-reference, so any changes made to gs within a frame class's conscructor will be refleted in this here object.
 		gs = GameState()
+		for x in range(PLAYER_COUNT) : # create a player object for each player give them unique numbers
+			p = Player()
+			p.initial_numbers = p.getUniqueRandNums()
+			p.id_num = x
+			gs.player_turn_order.insert(x,p)
 
 		# TODO: initialize gs.players with their secret numbers, use functions in networking.py to assign them their ids, accept usernames, define turn order, etc.
 		# This is where the code that's currently in the "playGame" function in "board-game-cli.py" (This file no longer exists in the repository. Refer to previous committs to see it) needs to go.
