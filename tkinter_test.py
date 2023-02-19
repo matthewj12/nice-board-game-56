@@ -99,9 +99,11 @@ class HostPage(tk.Frame):
 		global player_three
 		global player_two
 		global player_one
-
+        
 		tk.Frame.__init__(self, parent)
+        
 		self.controller = controller
+        
 		label = tk.Label(self, text="This is Your IP: "+getIPaddr(), font=('Times New Roman',50))
 		label.pack(side="top", fill="x", pady=10)
 		label_announce = tk.Label(self,
