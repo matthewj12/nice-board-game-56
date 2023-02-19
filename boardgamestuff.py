@@ -30,6 +30,8 @@ class GameState():
 	turn = 0
 	# integer hbetween 1 and 10 inclusive (or 0 and 9 inclusive)
 	current_round = None
+	host_ip = None
+	host_port= None
 
 	def printIt(self):
 		print()
@@ -116,11 +118,15 @@ def playRound(gs):
 		gs.turn = (gs.turn + 1) % len(gs.players)
 
 	print(f"\n{winner.username} has won the round. Congratulations to played who played and gave it their all! Until next time...")
-	print(f"{winner.username} gets {sum(winner.guessed_numbers)} points (Awesome!). Everyone else gets 10 points (Sad!).")
-	winner.points += sum(winner.guessed_numbers)
+	print(f"{winner.username} gets {len(winner.guessed_numbers)} points (Awesome!). Everyone else gets 10 points (Sad!).")
+	winner.points += len(winner.guessed_numbers)
 
 	# Everyone gets some points because everyone is a winner!
 	for p in gs.players:
 		if p.username != winner.username:
 			p.points += 10
 
+def reset(gs):
+	for player in gs.player_turn_order:
+		player.initial_numbers =[]
+		player.guessed_numbers =[]
