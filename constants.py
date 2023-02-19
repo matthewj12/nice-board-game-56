@@ -1,4 +1,3 @@
-#this is used by main.py and used by them but they are not changed often do they do not go in with the game state
 # This can be any port over 1024 that's available on the the server computer and isn't blocked by the network's firewall.
 SERVER_PORT = 6100
 PACKET_SIZE = 99999 # bytes

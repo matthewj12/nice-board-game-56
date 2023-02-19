@@ -4,13 +4,12 @@ from networking import *
 
 '''
 This module contains classes and functions comprising the "backend" of the "Super Set Me!" video game's program. That is, the stuff relating to the actual board game being played. This is the "business" logic, if you will.
-This is where the random numbers and users info is located
 '''
 
 class Player():
 	# is a string (need to change name to reflect this)
 	id_num = None
-	username = None
+	#username = None
 	# tuple of length 3
 	initial_numbers = None
 	# list with 0 to 20 inclusive elements. Only applies to the current round.
@@ -23,12 +22,12 @@ class Player():
 
 class GameState():
 	# dictionary of player objects
-	players = None
-	# tuple of length 4 containing Player objects
+	#players = None
+	# list of length 4 containing Player objects
 	player_turn_order = None 
 	# index refering to a plyer object in player_turn_order whose turn it currently is. Its "their turn" while we're waiting for them to guess a number.
-	turn = None
-	# integer between 1 and 10 inclusive (or 0 and 9 inclusive)
+	turn = 0
+	# integer hbetween 1 and 10 inclusive (or 0 and 9 inclusive)
 	current_round = None
 
 	def printIt(self):
@@ -42,7 +41,6 @@ class GameState():
 available_nums = [n+1 for n in range(MAX_NUM)]
 random.shuffle(available_nums)
 
-#you only call this once to get the random 3 numbers for each player
 def getUniqueRandNums():
 	global available_nums
 
@@ -51,7 +49,7 @@ def getUniqueRandNums():
 
 	return to_return
 
-#use to get the button pressed from the user
+
 def getGuessFromPlayer(p_obj, available_nums):
 	# Make a deep copy of available_nums
 	guessable_nums = [n for n in available_nums]
@@ -78,7 +76,7 @@ def isSupersetOf(a, b):
 
 	return True
 
-# we do not have usernames but it is checking for a winner. This should be called with each game state pass
+
 def playerXHasWon(gs, x):
 	for p in gs.players:
 		if p.username != x.username and not isSupersetOf(x.guessed_numbers, p.initial_numbers):
@@ -86,7 +84,7 @@ def playerXHasWon(gs, x):
 
 	return True
 		
-#takes the guesses and calls the method playerxHasWon to check for winners
+
 def playRound(gs):
 	print(f"------ STARTING ROUND {gs.current_round} ------")
 	
