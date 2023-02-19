@@ -27,7 +27,7 @@ def sendGameState(dest_ip, dest_port, pack_size, gs):
 
 	sock.close()
 
-#use to get the game state
+#use to get the game state for each payer even when it is not their turn
 def recvGameState(source_ip, source_port, pack_size):
 	sock = socket.socket(socket.AF_INSET, socket.SOCK_STREAM)
 	sock.bind((source_ip, source_port))
