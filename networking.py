@@ -1,6 +1,6 @@
 import socket, pickle, subprocess
 
-
+#we use this to connect each time we want to send or receive something
 class Connection():
 	# string representing an IPv4 address (e.g., '10.34.1.203')
 	ip_addr = None
@@ -31,7 +31,7 @@ def getIPaddr():
 		return ip_addr
 
 
-
+#use to send game state to server
 def sendGameState(dest_ip, dest_port, pack_size, gs):
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	sock.connect((dest_ip, dest_port))
@@ -41,6 +41,7 @@ def sendGameState(dest_ip, dest_port, pack_size, gs):
 
 	sock.close()
 
+#use to get the game state for each payer even when it is not their turn
 def recvGameState(source_ip, source_port, pack_size):
 	sock = socket.socket(socket.AF_INSET, socket.SOCK_STREAM)
 	sock.bind((source_ip, source_port))

@@ -1,8 +1,12 @@
+from boardgamestuff import *
+from networking import *
+
+
 try:
     import tkinter as tk                # python 3
     from tkinter import font as tkfont  # python 3
 except ImportError:
-    import Tkinter as tk     # python 2
+    import tKinter as tk     # python 2
     import tkFont as tkfont  # python 2
 
 class SampleApp(tk.Tk):
@@ -21,14 +25,15 @@ class SampleApp(tk.Tk):
         global grid
         global grid_fill
         #from the server
-        have_numbers = "1 2 5 6"
+        have_numbers = " ".join([str(i) for i in getUniqueRandNums()])
         #array
         grid_fill = []
+        #make the grid read in areas of four, like n%4 to know which x belongs to which person
         grid = ["X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X"]
 
         buttons = []
         numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
-        ip_address = "ip"
+        ip_address = str(getIPaddr())
         client_enter_ip = ""
         player_one = ""
         player_two = ""
@@ -47,7 +52,7 @@ class SampleApp(tk.Tk):
         container.grid_columnconfigure(0, weight=10)
 
         self.frames = {}
-        for F in (StartPage, PageOne, PageTwo, gamePage):
+        for F in (StartPage, HostPage, ClientPage, GameStartPage):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
@@ -74,14 +79,14 @@ class StartPage(tk.Frame):
         label.pack(side="top", fill="x", pady=10)
 
         button1 = tk.Button(self, text="Host", height = 3, width = 20, font=('Times New Roman',30),
-                            command=lambda: controller.show_frame("PageOne"))
+                            command=lambda: controller.show_frame("HostPage"))
         button2 = tk.Button(self, text="Client", height = 3, width = 20, font=('Times New Roman',30),
-                            command=lambda: controller.show_frame("PageTwo"))
+                            command=lambda: controller.show_frame("ClientPage"))
         button1.pack()
         button2.pack()
 
 
-class PageOne(tk.Frame):
+class HostPage(tk.Frame):
 
     def __init__(self, parent, controller):
         global ip_address
@@ -139,9 +144,10 @@ class PageOne(tk.Frame):
         button_restart.grid(row = 6, column = 3)
 
 
-class PageTwo(tk.Frame):
+class ClientPage(tk.Frame):
 
     def __init__(self, parent, controller):
+       
         tk.Frame.__init__(self, parent)
         self.controller = controller
         label = tk.Label(self, text="Enter your Ip: ", font=controller.title_font)
@@ -183,11 +189,18 @@ class PageTwo(tk.Frame):
                             height=2,
                             font=('Times New Roman',25),
                             command=lambda: controller.show_frame("StartPage"))
+        button_IP = tk.Button(self, text="connect",
+                            width=10,
+                            height=2,
+                            font=('Times New Roman',25),
+                            command=lambda: loadIP(str(entry_ip.get())) )
         button_ready = tk.Button(self, text="Ready",
                             width=10,
                             height=2,
                             font=('Times New Roman',25),
-                            command=lambda: controller.show_frame("gamePage"))
+                            #have a connector to server here, not sure but its giving me an error
+                            
+                            command=lambda: controller.show_frame("GameStartPage"))
         
         label.grid(row=0, column=3)
         entry_ip.grid(row=0, column=4)
@@ -197,17 +210,29 @@ class PageTwo(tk.Frame):
         label_player_three.grid(row = 4, column = 2)
         label_player_four.grid(row = 5, column = 2)
         button_restart.grid(row = 6, column = 3)
+        button_IP.grid(row = 6, column = 5)
         button_ready.grid(row = 6, column = 4)
+class loadIP:
+    def __init__(self, ip):
+        client_enter_ip = ip
+        Connection(client_enter_ip, 6100, getIPaddr())
 
-class gamePage(tk.Frame):
+class GameStartPage(tk.Frame):
 
     def __init__(self, parent, controller):
+        print(client_enter_ip)
+        Connection(client_enter_ip, 6100, getIPaddr())
         tk.Frame.__init__(self, parent)
         self.controller = controller
-
+        global have_numbers
+        have_numbers_add = have_numbers
         def button(button_press, number):
+            #getGuessFromPlayer(number)
             print(number)
+           # sendGameState(client_enter_ip, 6100, 99999, )
             buttons[button_press]["state"] = tk.DISABLED
+            have_numbers = have_numbers_add+" "+str(number)
+            label_have_numbers["text"] = "Your Set: "+ have_numbers
 
         label_have_numbers = tk.Label(self,
                                text= "Your Set: "+have_numbers,
@@ -239,14 +264,6 @@ class gamePage(tk.Frame):
             elif i == 11:
                 rowi=rowi+1
                 col = 2
-
-        #label_guess = tk.Label(self,
-                               #text= "pick a number to guess",
-                               #width=5,
-                               #height=2,
-                               #font=('Times New Roman',25))
-
-        #label_guess.grid(row=3, column=1)
 
         #creating the buttons
         col = 0

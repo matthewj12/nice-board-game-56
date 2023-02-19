@@ -1,8 +1,10 @@
 import tkinter
 import customtkinter
 
-# Splitting each function into its own file creates circular dependency errors, so I put them all in this one file instead.
+from tkinter_test import *
 
+# Splitting each function into its own file creates circular dependency errors, so I put them all in this one file instead.
+#
 class RoundInProgressScreen(customtkinter.CTkFrame):
 	def __init__(self, parent, controller, gs):
 		customtkinter.CTkFrame.__init__(self, parent)

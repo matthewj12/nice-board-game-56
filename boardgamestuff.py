@@ -1,6 +1,6 @@
 import random
 from constants import *
-from networking import getIPaddr
+from networking import *
 
 '''
 This module contains classes and functions comprising the "backend" of the "Super Set Me!" video game's program. That is, the stuff relating to the actual board game being played. This is the "business" logic, if you will.
@@ -9,7 +9,7 @@ This module contains classes and functions comprising the "backend" of the "Supe
 class Player():
 	# is a string (need to change name to reflect this)
 	id_num = None
-	username = None
+	#username = None
 	# tuple of length 3
 	initial_numbers = None
 	# list with 0 to 20 inclusive elements. Only applies to the current round.
@@ -22,12 +22,12 @@ class Player():
 
 class GameState():
 	# dictionary of player objects
-	players = None
-	# tuple of length 4 containing Player objects
+	#players = None
+	# list of length 4 containing Player objects
 	player_turn_order = None 
 	# index refering to a plyer object in player_turn_order whose turn it currently is. Its "their turn" while we're waiting for them to guess a number.
-	turn = None
-	# integer between 1 and 10 inclusive (or 0 and 9 inclusive)
+	turn = 0
+	# integer hbetween 1 and 10 inclusive (or 0 and 9 inclusive)
 	current_round = None
 
 	def printIt(self):
