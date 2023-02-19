@@ -30,8 +30,8 @@ class GameState():
 	turn = 0
 	# integer hbetween 1 and 10 inclusive (or 0 and 9 inclusive)
 	current_round = None
-	ip = None
-	port= None
+	host_ip = None
+	host_port= None
 
 	def printIt(self):
 		print()
