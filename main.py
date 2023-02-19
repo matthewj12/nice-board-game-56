@@ -25,6 +25,7 @@ class RootCtkObj(tkinter.Tk):
 		# calls the customtkinter.CTk object's constructor function
 		super().__init__()
 
+		container = tkinter.Frame(self)
 		container.pack(side="top", fill="both", expand=True)
 		
 		# By passing this GameState object into every frame, we can have a unified backend state throughout every screen entire GUI. Python is pass-by-reference, so any changes made to gs within a frame class's conscructor will be refleted in this here object.
