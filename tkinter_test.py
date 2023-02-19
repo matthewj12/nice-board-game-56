@@ -213,9 +213,6 @@ class ClientPage(tk.Frame):
         button_IP.grid(row = 6, column = 5)
         button_ready.grid(row = 6, column = 4)
 class loadIP:
-    def __init__(self, ip):
-        client_enter_ip = ip
-        Connection(client_enter_ip, 6100, getIPaddr())
     def __init__(self, dest_ip):
         clientServerInitConnect(dest_ip)
 
