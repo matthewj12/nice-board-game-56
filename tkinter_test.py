@@ -1,7 +1,6 @@
 from boardgamestuff import *
 from networking import *
 
-#todo make an array that holds your numbers and converts it into a line of strings
 
 try:
     import tkinter as tk                # python 3
