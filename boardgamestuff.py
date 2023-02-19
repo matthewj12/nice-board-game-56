@@ -18,6 +18,7 @@ class Player():
 	rounds_won = 0
 	# integer. Applies throughout all 10 rounds in the game. 
 	points = 0
+	my_ip = None
 
 
 class GameState():
@@ -28,7 +29,9 @@ class GameState():
 	# index refering to a plyer object in player_turn_order whose turn it currently is. Its "their turn" while we're waiting for them to guess a number.
 	turn = 0
 	# integer hbetween 1 and 10 inclusive (or 0 and 9 inclusive)
-	current_round = None
+	current_round = 0
+	host_ip = None
+	host_port= None
 
 	def printIt(self):
 		print()
@@ -115,11 +118,15 @@ def playRound(gs):
 		gs.turn = (gs.turn + 1) % len(gs.players)
 
 	print(f"\n{winner.username} has won the round. Congratulations to played who played and gave it their all! Until next time...")
-	print(f"{winner.username} gets {sum(winner.guessed_numbers)} points (Awesome!). Everyone else gets 10 points (Sad!).")
-	winner.points += sum(winner.guessed_numbers)
+	print(f"{winner.username} gets {len(winner.guessed_numbers)} points (Awesome!). Everyone else gets 10 points (Sad!).")
+	winner.points += len(winner.guessed_numbers)
 
 	# Everyone gets some points because everyone is a winner!
 	for p in gs.players:
 		if p.username != winner.username:
 			p.points += 10
 
+def reset(gs):
+	for player in gs.player_turn_order:
+		player.initial_numbers =[]
+		player.guessed_numbers =[]
