@@ -1,4 +1,4 @@
-import socket, pickle
+import socket, pickle, subprocess
 
 
 class Connection():
@@ -15,7 +15,21 @@ class Connection():
 		self.sock = sock
 
 def getIPaddr():
-	return socket.gethostbyname(socket.gethostname())
+	try:
+		return socket.gethostbyname(socket.gethostname())
+	except Exception:
+		out = subprocess.check_output(['ifconfig'])
+
+		i = 0
+		ip_addr = ''
+		blobs = str(out).split(' ')
+		for blob in blobs:
+			if 'en0' in blob:
+				ip_addr = blobs[i+7]
+			i += 1
+
+		return ip_addr
+
 
 
 def sendGameState(dest_ip, dest_port, pack_size, gs):
@@ -37,3 +51,6 @@ def recvGameState(source_ip, source_port, pack_size):
 	sock.send('Receive successful')
 
 	sock.close()
+
+if __name__ == '__main__':
+	print(getIPaddr())
