@@ -41,6 +41,7 @@ class GameState():
 available_nums = [n+1 for n in range(MAX_NUM)]
 random.shuffle(available_nums)
 
+#you only call this once to get the random 3 numbers for each player
 def getUniqueRandNums():
 	global available_nums
 
@@ -49,7 +50,7 @@ def getUniqueRandNums():
 
 	return to_return
 
-
+#use to get the button pressed from the user
 def getGuessFromPlayer(p_obj, available_nums):
 	# Make a deep copy of available_nums
 	guessable_nums = [n for n in available_nums]
@@ -76,7 +77,7 @@ def isSupersetOf(a, b):
 
 	return True
 
-
+# we do not have usernames but it is checking for a winner. This should be called with each game state pass
 def playerXHasWon(gs, x):
 	for p in gs.players:
 		if p.username != x.username and not isSupersetOf(x.guessed_numbers, p.initial_numbers):
@@ -84,7 +85,7 @@ def playerXHasWon(gs, x):
 
 	return True
 		
-
+#takes the guesses and calls the method playerxHasWon to check for winners
 def playRound(gs):
 	print(f"------ STARTING ROUND {gs.current_round} ------")
 	
