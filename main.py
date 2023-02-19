@@ -20,7 +20,7 @@ Replacements for SampleObj:
 dest_ip = None
 dest_port = None
 
-class RootCtkObj(tkinter.Tk):
+class RootTkObj(tkinter.Tk):
 	def __init__(self, *args, **kwargs):
 		# calls the customtkinter.CTk object's constructor function
 		super().__init__()
@@ -35,11 +35,46 @@ class RootCtkObj(tkinter.Tk):
 			p.id_num = x
 			gs.player_turn_order.insert(x,p)
 
-		# TODO: initialize gs.players with their secret numbers, use functions in networking.py to assign them their ids, accept usernames, define turn order, etc.
-		# This is where the code that's currently in the "playGame" function in "board-game-cli.py" (This file no longer exists in the repository. Refer to previous committs to see it) needs to go.
-		# We will use functions from boardgamestuff.py to implement this, but the actual top-level of the game lives here.
-		# The constructors (__init__ functions) of each class in screens.py is where the other half of the game logic will occurr. When players press keys and hit enter or click buttons, the game state object gs must be updated accordingly.
+		global ip_address
+		global client_enter_ip
+		global player_four
+		global player_three
+		global player_two
+		global player_one
+		global buttons
+		global numbers
+		global have_numbers
+		global grid
+		global grid_fill
+		ip_address= ""
+		#from the server
+		have_numbers = " ".join([str(i) for i in getUniqueRandNums()])
+		#array
+		grid_fill = []
+		#make the grid read in areas of four, like n%4 to know which x belongs to which person
+		grid = ["X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X"]
+
+		buttons = []
+		numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
+		ip_address = getIPaddr()
+		client_enter_ip = ""
+		player_one = ""
+		player_two = ""
+		player_three = ""
+		
+		player_four = ""
+
+		self.title_font = tkfont.Font(family='Helvetica', size=30, weight="bold", slant="italic")
+		self.geometry("1500x700")
+		# the container is where we'll stack a bunch of frames
+		# on top of each other, then the one we want visible
+		# will be raised above the others
+
 		container = tk.Frame(self)
+		container.pack(side="top", fill="both", expand=True)
+		container.grid_rowconfigure(0, weight=10)
+		container.grid_columnconfigure(0, weight=10)
+
 		self.frames = {}
 		for F in (StartPage, HostPage, ClientPage, GameStartPage):
 			page_name = F.__name__
@@ -51,19 +86,18 @@ class RootCtkObj(tkinter.Tk):
 			# will be the one that is visible.
 			frame.grid(row=0, column=0, sticky="nsew")
 
-		self.show_frame("StartPage")
-	def show_frame(self, page_name):
-		# select the frame from the list of all frames.
-		frame = self.frames[page_name]
-		# Create the frame and make it visible.
-		frame.tkraise()
+			self.show_frame("StartPage")
 
+	def show_frame(self, page_name):
+		'''Show a frame for the given page name'''
+		frame = self.frames[page_name]
+		frame.tkraise()
 
 def main():
 	app = RootCtkObj()
 
 	app.title('Superset Me!')
-	app.geometry('1280x720')
+	#app.geometry('1280x720')
 
 	app.mainloop()
 

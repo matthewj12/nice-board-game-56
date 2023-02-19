@@ -1,6 +1,6 @@
 from boardgamestuff import *
 from networking import *
-
+from main import *
 
 try:
     import tkinter as tk                # python 3
@@ -33,7 +33,7 @@ class SampleApp(tk.Tk):
 
         buttons = []
         numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
-        ip_address = str(getIPaddr())
+        ip_address = getIPaddr()
         client_enter_ip = ""
         player_one = ""
         player_two = ""
@@ -89,7 +89,6 @@ class StartPage(tk.Frame):
 class HostPage(tk.Frame):
 
     def __init__(self, parent, controller):
-        global ip_address
         global player_four
         global player_three
         global player_two
@@ -97,8 +96,8 @@ class HostPage(tk.Frame):
 
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        label = tk.Label(self, text="This is Your IP: "+ip_address, font=controller.title_font)
-        #label.pack(side="top", fill="x", pady=10)
+        label = tk.Label(self, text="This is Your IP: "+getIPaddr(), font=controller.title_font)
+        label.pack(side="top", fill="x", pady=10)
         label_announce = tk.Label(self,
                             text= "The game will begin when there are 4 connected players \nPlayers Joined:",
                             width=40,
