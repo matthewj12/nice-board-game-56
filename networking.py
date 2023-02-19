@@ -1,5 +1,7 @@
 import socket, pickle, subprocess
+from constants import *
 
+clientcounter = 0
 #we use this to connect each time we want to send or receive something
 class Connection():
 	# string representing an IPv4 address (e.g., '10.34.1.203')
@@ -13,6 +15,26 @@ class Connection():
 		self.ip_addr = ip_addr
 		self.port = port
 		self.sock = sock
+
+def hostServerInitConnect():
+	
+	global clientcounter	
+	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	sock.bind(('', SERVER_PORT))
+	sock.listen(5)
+	
+	sock, conn_info = sock.accept()
+	p = Player()
+	p.ip_addr, p.port = conn_info
+	sock.send(str.encode(str(clientcounter)))
+	clientcounter =+ 1
+
+def clientServerInitConnect(dest_ip):
+	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	sock.connect(dest_ip, SERVER_PORT )
+	recv = sock.recv(PACKET_SIZE)
+	our_id = bytes.decode(recv)
+
 
 def getIPaddr():
 	try:
@@ -52,6 +74,7 @@ def recvGameState(source_ip, source_port, pack_size):
 	sock.send('Receive successful')
 
 	sock.close()
+
 
 if __name__ == '__main__':
 	print(getIPaddr())
