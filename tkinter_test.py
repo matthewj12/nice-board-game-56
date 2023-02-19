@@ -75,7 +75,7 @@ class StartPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        label = tk.Label(self, text="Are you the Host or Client?", font=controller.title_font)
+        label = tk.Label(self, text="Are you the Host or Client?")
         label.pack(side="top", fill="x", pady=10)
 
         button1 = tk.Button(self, text="Host", height = 3, width = 20, font=('Times New Roman',30),
