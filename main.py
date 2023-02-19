@@ -23,7 +23,7 @@ dest_port = None
 class RootTkObj(tkinter.Tk):
 	def __init__(self, *args, **kwargs):
 		# calls the customtkinter.CTk object's constructor function
-		super().__init__()
+		tkinter.Tk.__init__(self, *args, **kwargs)
 		
 		#container.pack(side="top", fill="both", expand=True)
 		
@@ -94,7 +94,7 @@ class RootTkObj(tkinter.Tk):
 		frame.tkraise()
 
 def main():
-	app = RootCtkObj()
+	app = RootTkObj()
 
 	app.title('Superset Me!')
 	#app.geometry('1280x720')
