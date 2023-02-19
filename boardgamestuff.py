@@ -30,6 +30,8 @@ class GameState():
 	turn = 0
 	# integer hbetween 1 and 10 inclusive (or 0 and 9 inclusive)
 	current_round = None
+	ip = None
+	port= None
 
 	def printIt(self):
 		print()
@@ -128,4 +130,3 @@ def reset(gs):
 	for player in gs.player_turn_order:
 		player.initial_numbers =[]
 		player.guessed_numbers =[]
-		
