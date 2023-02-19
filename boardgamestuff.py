@@ -124,3 +124,8 @@ def playRound(gs):
 		if p.username != winner.username:
 			p.points += 10
 
+def reset(gs):
+	for player in gs.player_turn_order:
+		player.initial_numbers =[]
+		player.guessed_numbers =[]
+		
