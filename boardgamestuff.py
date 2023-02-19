@@ -11,13 +11,13 @@ class Player():
 	id_num = None
 	#username = None
 	# tuple of length 3
-	initial_numbers = None
+	initial_numbers = []
 	# list with 0 to 20 inclusive elements. Only applies to the current round.
-	guessed_numbers = None
+	guessed_numbers = []
 	# integer between 0 and 10 inclusive
-	rounds_won = None
+	rounds_won = 0
 	# integer. Applies throughout all 10 rounds in the game. 
-	points = None
+	points = 0
 
 
 class GameState():
