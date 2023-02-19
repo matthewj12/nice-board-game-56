@@ -101,7 +101,9 @@ class HostPage(tk.Frame):
 		global player_one
         
 		tk.Frame.__init__(self, parent)
-        
+
+		hostServerInitConnect()
+
 		self.controller = controller
         
 		label = tk.Label(self, text="This is Your IP: "+getIPaddr(), font=('Times New Roman',50))
@@ -196,7 +198,7 @@ class ClientPage(tk.Frame):
 							height=2,
 							font=('Times New Roman',25),
 							command=lambda: controller.show_frame("StartPage"))
-		button_IP = tk.Button(self, text="connect",
+		button_IP = tk.Button(self, text="Connect",
 							width=10,
 							height=2,
 							font=('Times New Roman',25),
