@@ -25,6 +25,7 @@ class Player():
 
 class GameState():
 	# dictionary of player objects
+	game_started = None
 	players = None
 	# list of length 4 containing Player objects
 	player_turn_order = []
