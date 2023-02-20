@@ -16,7 +16,7 @@ class Connection():
 		self.port = port
 		self.sock = sock
 
-def hostServerInitConnect():
+def hostServerInitConnect(gs):
 	global clientcounter	
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	sock.bind(('', SERVER_PORT))
@@ -25,14 +25,13 @@ def hostServerInitConnect():
 	sock, conn_info = sock.accept()
 	p = Player()
 	p.ip_addr, p.port = conn_info
-	sock.send(str.encode(str(clientcounter)))
+	p_id = str(clientcounter)
+	sock.send(str.encode(p_id))
 	sock.close()
 	clientcounter += 1
 
-	time.sleep(0.1)
-
-	# gs.players.append(p)
-	# return gs
+	gs.players[p]
+	return p_id, gs
 
 def clientServerInitConnect(dest_ip):
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

@@ -9,23 +9,19 @@ except ImportError:
 	import tKinter as tk     # python 2
 	import tkFont as tkfont  # python 2
 
+p_id = None
+
 class SampleApp(tk.Tk):
 
 	def __init__(self, *args, **kwargs):
 		tk.Tk.__init__(self, *args, **kwargs)
 		global ip_address
 		global client_enter_ip
-		global player_four
-		global player_three
-		global player_two
-		global player_one
 		global buttons
 		global numbers
-		global have_numbers
 		global grid
 		global grid_fill
 		#from the server
-		have_numbers = " ".join([str(i) for i in getUniqueRandNums()])
 		#array
 		grid_fill = []
 		#make the grid read in areas of four, like n%4 to know which x belongs to which person
@@ -42,12 +38,8 @@ class SampleApp(tk.Tk):
 		player_four = ""
 
 		# By passing this GameState object into every frame, we can have a unified backend state throughout every screen entire GUI. Python is pass-by-reference, so any changes made to gs within a frame class's conscructor will be refleted in this here object.
-		gs = GameState()
-		for x in range(PLAYER_COUNT) : # create a player object for each player give them unique numbers
-			p = Player()
-			p.initial_numbers = getUniqueRandNums()
-			p.id_num = x
-			gs.player_turn_order.insert(x,p)
+		state = GameState()
+		state.players = {}
 
 		# the container is where we'll stack a bunch of frames
 		# on top of each other, then the one we want visible
@@ -60,7 +52,7 @@ class SampleApp(tk.Tk):
 		self.frames = {}
 		for F in (StartPage, HostPage, ClientPage, GameStartPage):
 			page_name = F.__name__
-			frame = F(parent=container, controller=self)
+			frame = F(parent=container, controller=self, gs=state)
 			self.frames[page_name] = frame
 
 			# put all of the pages in the same location;
@@ -77,7 +69,7 @@ class SampleApp(tk.Tk):
 
 
 class StartPage(tk.Frame):
-	def __init__(self, parent, controller):
+	def __init__(self, parent, controller, gs):
 		tk.Frame.__init__(self, parent)
 
 		self.controller = controller
@@ -94,11 +86,15 @@ class StartPage(tk.Frame):
 
 class HostPage(tk.Frame):
 
-	def __init__(self, parent, controller):
+	def __init__(self, parent, controller, gs):
 		def hosting():
+			global p_id
+
 			connected = 0
 			while connected < PLAYER_COUNT:
-				hostServerInitConnect()
+				p_id, gs = hostServerInitConnect(gs)
+				gs.players[len(gs.players)-1].initial_numbers = getUniqueRandNums()
+
 				connected += 1
 				if connected == 1:
 					label_player_one.configure(text = 'Player 1: connected')
@@ -171,7 +167,7 @@ class HostPage(tk.Frame):
 
 class ClientPage(tk.Frame):
 
-	def __init__(self, parent, controller):
+	def __init__(self, parent, controller, gs):
 	   
 		tk.Frame.__init__(self, parent)
 		self.controller = controller
@@ -186,26 +182,26 @@ class ClientPage(tk.Frame):
 							font=('Times New Roman',25))
 
 		label_player_one = tk.Label(self,
-							text= "1: "+player_one,
-							width=20,
+							text= "1: ",
+							width=10,
 							height=2,
 							font=('Times New Roman',25))
 
 		label_player_two = tk.Label(self,
-							text= "2: "+player_two,
-							width=20,
+							text= "2: ",
+							width=10,
 							height=2,
 							font=('Times New Roman',25))
 
 		label_player_three = tk.Label(self,
-							text= "3: "+player_three,
-							width=20,
+							text= "3: ",
+							width=10,
 							height=2,
 							font=('Times New Roman',25))
 
 		label_player_four = tk.Label(self,
-							text= "4: "+player_four,
-							width=20,
+							text= "4: ",
+							width=10,
 							height=2,
 							font=('Times New Roman',25))
 		
@@ -245,24 +241,19 @@ class loadIP:
 
 class GameStartPage(tk.Frame):
 
-	def __init__(self, parent, controller):
-		print(client_enter_ip)
-		Connection(client_enter_ip, 6100, getIPaddr())
+	def __init__(self, parent, controller, gs):
+		global p_id
+
 		tk.Frame.__init__(self, parent)
 		self.controller = controller
 		def button(button_press, number):
 			#getGuessFromPlayer(number)
-			print(number)
-			global have_numbers
-
 		    #sendGameState(client_enter_ip, 6100, 99999, )
 			buttons[button_press]["state"] = tk.DISABLED
-			have_numbers_add = have_numbers+" "+str(number)
-			have_numbers = have_numbers_add
-			label_have_numbers["text"] = "Your Set: "+ have_numbers
+			label_have_numbers["text"] = "Your Set: " + ''.join([n for n in gs.players[p_id].initial_numbers])
 
 		label_have_numbers = tk.Label(self,
-							   text= "Your Set: "+have_numbers,
+							   text= "Your Set: ",
 							   width=30,
 							   height=2,
 							   font=('Times New Roman',25))
@@ -306,10 +297,10 @@ class GameStartPage(tk.Frame):
 				col = 0
 
 		#disable the button numbers they already have
-		split = have_numbers.split()
-		for check_n in numbers:
-			for check_split in split:
-				if check_n == check_split:
+		
+		if p_id != None:
+			for check_n in numbers:
+				if check_n in gs.players[p_id].initial_numbers:
 					buttons[int(check_n)-1]["state"]=tk.DISABLED
 
 		button_restart = tk.Button(self, text="Restart",

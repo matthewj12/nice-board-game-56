@@ -18,12 +18,14 @@ class Player():
 	rounds_won = 0
 	# integer. Applies throughout all 10 rounds in the game. 
 	points = 0
-	my_ip = None
+	ip_addr = None
+	port = None
+
 
 
 class GameState():
 	# dictionary of player objects
-	#players = None
+	players = None
 	# list of length 4 containing Player objects
 	player_turn_order = []
 	# index refering to a plyer object in player_turn_order whose turn it currently is. Its "their turn" while we're waiting for them to guess a number.
