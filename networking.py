@@ -27,13 +27,14 @@ def hostServerInitConnect():
 	p = Player()
 	p.ip_addr, p.port = conn_info
 	sock.send(str.encode(str(clientcounter)))
-	clientcounter =+ 1
+	clientcounter += 1
 
 def clientServerInitConnect(dest_ip):
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	sock.connect((dest_ip, SERVER_PORT))
 	recv = sock.recv(PACKET_SIZE)
 	our_id = bytes.decode(recv)
+	print("connected!")
 
 
 def getIPaddr():
