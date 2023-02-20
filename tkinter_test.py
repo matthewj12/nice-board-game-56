@@ -183,7 +183,7 @@ class ClientPage(tk.Frame):
 			global p_id
 			p_id = clientServerInitConnect(dest_ip)
 			client_enter_ip = dest_ip
-			gs = recvGameState(dest_ip,dest_port,PACKET_SIZE)
+			gs = recvGameState(dest_ip,client_enter_ip,PACKET_SIZE)
 			if p_id != None:
 				controller.show_frame("GameStartPage")
 

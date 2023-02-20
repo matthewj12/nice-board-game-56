@@ -79,6 +79,7 @@ def recvGameState(source_ip, source_port, pack_size):
 	sock.send('Receive successful')
 
 	sock.close()
+	return recv_gs
 
 
 if __name__ == '__main__':
