@@ -103,7 +103,12 @@ class HostPage(tk.Frame):
 					label_player_three.configure(text = 'Player 3: connected')
 				elif connected == 4:
 					label_player_four.configure(text = 'Player 4: connected')
+					for p in gs.players:
+						sendGameState(p.ip_addr,p.port,PACKET_SIZE)
+
 					controller.show_frame("GameStartPage")
+
+
 
 
 		tk.Frame.__init__(self, parent)
@@ -174,6 +179,16 @@ class ClientPage(tk.Frame):
 		label.pack(side="top", fill="x", pady=10)
 		entry_ip = tk.Entry(self, font=('Times New Roman',25))
 
+	def loadIP(dest_ip,controller):
+		global p_id
+		p_id = clientServerInitConnect(dest_ip)
+		client_enter_ip = dest_ip
+		gs = recvGameState(dest_ip,dest_port,PACKET_SIZE)
+		if p_id != None:
+			controller.show_frame("GameStartPage")
+
+
+
 		label_announce = tk.Label(self,
 							text= "The game will begin when there are 4 connected players \nPlayers Joined:",
 							width=40,
@@ -233,13 +248,7 @@ class ClientPage(tk.Frame):
 		button_IP.grid(row = 6, column = 5)
 		button_ready.grid(row = 6, column = 4)
 		
-class loadIP:
-	def __init__(self, dest_ip, controller):
-		global p_id
-		p_id = clientServerInitConnect(dest_ip)
-		client_enter_ip = dest_ip
-		if p_id != None:
-			controller.show_frame("GameStartPage")
+
 
 class GameStartPage(tk.Frame):
 
