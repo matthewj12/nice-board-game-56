@@ -88,6 +88,7 @@ class HostPage(tk.Frame):
 
 	def __init__(self, parent, controller, gs):
 		def hosting():
+			nonlocal gs
 			global p_id
 
 			connected = 0

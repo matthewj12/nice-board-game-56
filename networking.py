@@ -30,7 +30,7 @@ def hostServerInitConnect(gs):
 	sock.close()
 	clientcounter += 1
 
-	gs.players[p]
+	gs.players[p_id]
 	return p_id, gs
 
 def clientServerInitConnect(dest_ip):
