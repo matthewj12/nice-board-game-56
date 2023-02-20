@@ -187,25 +187,25 @@ class ClientPage(tk.Frame):
 
 		label_player_one = tk.Label(self,
 							text= "1: "+player_one,
-							width=50,
+							width=20,
 							height=2,
 							font=('Times New Roman',25))
 
 		label_player_two = tk.Label(self,
 							text= "2: "+player_two,
-							width=50,
+							width=20,
 							height=2,
 							font=('Times New Roman',25))
 
 		label_player_three = tk.Label(self,
 							text= "3: "+player_three,
-							width=50,
+							width=20,
 							height=2,
 							font=('Times New Roman',25))
 
 		label_player_four = tk.Label(self,
 							text= "4: "+player_four,
-							width=50,
+							width=20,
 							height=2,
 							font=('Times New Roman',25))
 		
