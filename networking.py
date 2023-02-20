@@ -31,15 +31,15 @@ def hostServerInitConnect(gs):
 	clientcounter += 1
 
 	gs.players[p_id] = p
-	return p_id, gs
+	return gs
 
 def clientServerInitConnect(dest_ip):
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	sock.connect((dest_ip, SERVER_PORT))
 	recv = sock.recv(PACKET_SIZE)
 	our_id = bytes.decode(recv)
-	
 	print('connected')
+	return our_id
 
 def getIPaddr():
 	try:

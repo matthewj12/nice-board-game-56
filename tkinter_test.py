@@ -93,7 +93,7 @@ class HostPage(tk.Frame):
 			nonlocal gs
 			connected = 0
 			while connected < PLAYER_COUNT:
-				p_id, gs = hostServerInitConnect(gs)
+				gs = hostServerInitConnect(gs)
 				gs.players[str(connected)].initial_numbers = getUniqueRandNums()
 
 				connected += 1
@@ -239,7 +239,7 @@ class ClientPage(tk.Frame):
 class loadIP:
     def __init__(self, dest_ip):
         client_enter_ip = dest_ip
-        clientServerInitConnect(dest_ip)
+        our_ip = clientServerInitConnect(dest_ip)
 
 class GameStartPage(tk.Frame):
 
