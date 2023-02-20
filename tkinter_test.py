@@ -103,13 +103,13 @@ class HostPage(tk.Frame):
 					label_player_three.configure(text = 'Player 3: connected')
 				elif connected == 4:
 					label_player_four.configure(text = 'Player 4: connected')
-					self.show_frame("GameStartPage")
+					controller.show_frame("GameStartPage")
 
 
 		tk.Frame.__init__(self, parent)
 
 		self.controller = controller
-        
+		
 		label = tk.Label(self, text="This is Your IP: "+getIPaddr(), font=('Times New Roman',50))
 		label.pack(side="top", fill="x", pady=10)
 		label_announce = tk.Label(self,
@@ -168,7 +168,6 @@ class HostPage(tk.Frame):
 class ClientPage(tk.Frame):
 
 	def __init__(self, parent, controller, gs):
-	   
 		tk.Frame.__init__(self, parent)
 		self.controller = controller
 		label = tk.Label(self, text="Enter your Ip: ", font=('Times New Roman',50))
@@ -235,9 +234,12 @@ class ClientPage(tk.Frame):
 		button_ready.grid(row = 6, column = 4)
 		
 class loadIP:
-    def __init__(self, dest_ip):
-        client_enter_ip = dest_ip
-        our_ip = clientServerInitConnect(dest_ip)
+	def __init__(self, dest_ip, controller):
+		global p_id
+		p_id = clientServerInitConnect(dest_ip)
+		client_enter_ip = dest_ip
+		if p_id != None:
+			controller.show_frame("GameStartPage")
 
 class GameStartPage(tk.Frame):
 
@@ -248,7 +250,7 @@ class GameStartPage(tk.Frame):
 		self.controller = controller
 		def button(button_press, number):
 			#getGuessFromPlayer(number)
-		    #sendGameState(client_enter_ip, 6100, 99999, )
+			#sendGameState(client_enter_ip, 6100, 99999, )
 			buttons[button_press]["state"] = tk.DISABLED
 			label_have_numbers["text"] = "Your Set: " + ''.join([n for n in gs.players[p_id].initial_numbers])
 
