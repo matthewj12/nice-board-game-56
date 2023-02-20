@@ -5,7 +5,7 @@ import boardgamestuff
 
 def hostServerInitConnect(gs, connected):
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	sock.bind(('192.168.1.201', SERVER_PORT))
+	sock.bind((getIPaddr(), SERVER_PORT))
 	sock.listen(5)
 	
 	sock, conn_info = sock.accept()
@@ -61,3 +61,6 @@ def recvGameState(source_ip, source_port, pack_size):
 
 	sock.close()
 	return recv_gs
+
+if __name__ == '__main__':
+	print(getIPaddr())
