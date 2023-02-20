@@ -94,7 +94,7 @@ class HostPage(tk.Frame):
 			connected = 0
 			while connected < PLAYER_COUNT:
 				p_id, gs = hostServerInitConnect(gs)
-				gs.players[len(gs.players)-1].initial_numbers = getUniqueRandNums()
+				gs.players[str(connected)].initial_numbers = getUniqueRandNums()
 
 				connected += 1
 				if connected == 1:
