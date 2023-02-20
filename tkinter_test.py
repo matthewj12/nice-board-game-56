@@ -234,6 +234,7 @@ class ClientPage(tk.Frame):
 		
 class loadIP:
     def __init__(self, dest_ip):
+        client_enter_ip = dest_ip
         clientServerInitConnect(dest_ip)
 
 class GameStartPage(tk.Frame):
