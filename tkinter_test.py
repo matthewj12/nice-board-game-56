@@ -121,36 +121,36 @@ class HostPage(tk.Frame):
 
 		label_player_one = tk.Label(self,
 							text= "1: ",
-							width=10,
+							width=20,
 							height=2,
 							font=('Times New Roman',25))
 
 		label_player_two = tk.Label(self,
 							text= "2: ",
-							width=10,
+							width=20,
 							height=2,
 							font=('Times New Roman',25))
 
 		label_player_three = tk.Label(self,
 							text= "3: ",
-							width=10,
+							width=20,
 							height=2,
 							font=('Times New Roman',25))
 
 		label_player_four = tk.Label(self,
 							text= "4: ",
-							width=10,
+							width=20,
 							height=2,
 							font=('Times New Roman',25))
 		
 		button_restart = tk.Button(self, text="Restart",
-							width=10,
+							width=20,
 							height=2,
 							font=('Times New Roman',25),
 							command=lambda: controller.show_frame("StartPage"))
 		
 		button_Ready= tk.Button(self, text="Ready",
-							width=10,
+							width=20,
 							height=2,
 							font=('Times New Roman',25),
 							command=hosting)

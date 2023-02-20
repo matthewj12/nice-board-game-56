@@ -3,7 +3,7 @@ SERVER_PORT = 6100
 PACKET_SIZE = 99999 # bytes
 
 # should be 4 as per Iyengar's specification
-PLAYER_COUNT = 2
+PLAYER_COUNT = 4
 # should be set to 10 as per Iyengar's specification
 ROUNDS_PER_GAME = 10
 # how many secret numbers each player is given
