@@ -90,7 +90,7 @@ class HostPage(tk.Frame):
 		def hosting():
 			nonlocal gs
 			global p_id
-
+			nonlocal gs
 			connected = 0
 			while connected < PLAYER_COUNT:
 				p_id, gs = hostServerInitConnect(gs)
