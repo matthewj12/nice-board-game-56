@@ -95,11 +95,21 @@ class StartPage(tk.Frame):
 class HostPage(tk.Frame):
 
 	def __init__(self, parent, controller):
-		global player_four
-		global player_three
-		global player_two
-		global player_one
-        
+		def hosting():
+			connected = 0
+			while connected < PLAYER_COUNT:
+				hostServerInitConnect()
+				connected += 1
+				if connected == 1:
+					label_player_one.configure(text = 'Player 1: connected')
+				elif connected == 2:
+					label_player_two.configure(text = 'Player 2: connected')
+				elif connected == 3:
+					label_player_three.configure(text = 'Player 3: connected')
+				elif connected == 4:
+					label_player_four.configure(text = 'Player 4: connected')
+
+
 		tk.Frame.__init__(self, parent)
 
 		self.controller = controller
@@ -113,25 +123,25 @@ class HostPage(tk.Frame):
 							font=('Times New Roman',25))
 
 		label_player_one = tk.Label(self,
-							text= "1: "+player_one,
+							text= "1: ",
 							width=10,
 							height=2,
 							font=('Times New Roman',25))
 
 		label_player_two = tk.Label(self,
-							text= "2: "+player_two,
+							text= "2: ",
 							width=10,
 							height=2,
 							font=('Times New Roman',25))
 
 		label_player_three = tk.Label(self,
-							text= "3: "+player_three,
+							text= "3: ",
 							width=10,
 							height=2,
 							font=('Times New Roman',25))
 
 		label_player_four = tk.Label(self,
-							text= "4: "+player_four,
+							text= "4: ",
 							width=10,
 							height=2,
 							font=('Times New Roman',25))
@@ -157,11 +167,7 @@ class HostPage(tk.Frame):
 		button_restart.grid(row = 6, column = 2)
 		button_Ready.grid(row = 6, column = 4)
 
-def hosting():
-	connected = 0
-	while connected < PLAYER_COUNT:
-		hostServerInitConnect()
-		connected += 1
+	
 
 class ClientPage(tk.Frame):
 
