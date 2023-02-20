@@ -1,7 +1,7 @@
 import socket, pickle, subprocess, time
 from constants import *
 from boardgamestuff import *
-clientcounter = 0
+clientcounter = 1
 #we use this to connect each time we want to send or receive something
 class Connection():
 	# string representing an IPv4 address (e.g., '10.34.1.203')

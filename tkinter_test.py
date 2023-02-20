@@ -105,6 +105,7 @@ class HostPage(tk.Frame):
 					label_player_three.configure(text = 'Player 3: connected')
 				elif connected == 4:
 					label_player_four.configure(text = 'Player 4: connected')
+					controller.show_frame("GameStartPage")
 
 
 		tk.Frame.__init__(self, parent)
