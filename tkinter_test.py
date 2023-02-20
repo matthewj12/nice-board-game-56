@@ -213,7 +213,7 @@ class ClientPage(tk.Frame):
 							width=10,
 							height=2,
 							font=('Times New Roman',25),
-							command=lambda: loadIP(str(entry_ip.get())) )
+							command=lambda: loadIP(str(entry_ip.get()), self.controller) )
 		button_ready = tk.Button(self, text="Ready",
 							width=10,
 							height=2,
