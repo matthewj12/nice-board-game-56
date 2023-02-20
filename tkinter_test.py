@@ -158,7 +158,10 @@ class HostPage(tk.Frame):
 		button_Ready.grid(row = 6, column = 4)
 
 def hosting():
-	hostServerInitConnect()
+	connected = 0
+	while connected < PLAYER_COUNT:
+		hostServerInitConnect()
+		connected += 1
 
 class ClientPage(tk.Frame):
 
@@ -228,6 +231,7 @@ class ClientPage(tk.Frame):
 		button_restart.grid(row = 6, column = 3)
 		button_IP.grid(row = 6, column = 5)
 		button_ready.grid(row = 6, column = 4)
+		
 class loadIP:
     def __init__(self, dest_ip):
         clientServerInitConnect(dest_ip)

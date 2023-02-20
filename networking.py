@@ -1,4 +1,4 @@
-import socket, pickle, subprocess
+import socket, pickle, subprocess, time
 from constants import *
 from boardgamestuff import *
 clientcounter = 0
@@ -17,7 +17,6 @@ class Connection():
 		self.sock = sock
 
 def hostServerInitConnect():
-	
 	global clientcounter	
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	sock.bind(('', SERVER_PORT))
@@ -27,14 +26,21 @@ def hostServerInitConnect():
 	p = Player()
 	p.ip_addr, p.port = conn_info
 	sock.send(str.encode(str(clientcounter)))
-	clientcounter =+ 1
+	sock.close()
+	clientcounter += 1
+
+	time.sleep(0.1)
+
+	# gs.players.append(p)
+	# return gs
 
 def clientServerInitConnect(dest_ip):
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	sock.connect((dest_ip, SERVER_PORT))
 	recv = sock.recv(PACKET_SIZE)
 	our_id = bytes.decode(recv)
-
+	
+	print('connected')
 
 def getIPaddr():
 	try:
