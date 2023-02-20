@@ -91,15 +91,13 @@ class HostPage(tk.Frame):
 			nonlocal gs
 			global p_id
 			nonlocal gs
-			connected = 0
+			connected = 1
 			while connected < PLAYER_COUNT:
 				gs = hostServerInitConnect(gs)
 				gs.players[str(connected)].initial_numbers = getUniqueRandNums()
-
+				label_player_one.configure(text = 'Player 1: connected')
 				connected += 1
-				if connected == 1:
-					label_player_one.configure(text = 'Player 1: connected')
-				elif connected == 2:
+				if connected == 2:
 					label_player_two.configure(text = 'Player 2: connected')
 				elif connected == 3:
 					label_player_three.configure(text = 'Player 3: connected')
