@@ -179,13 +179,13 @@ class ClientPage(tk.Frame):
 		label.pack(side="top", fill="x", pady=10)
 		entry_ip = tk.Entry(self, font=('Times New Roman',25))
 
-	def loadIP(dest_ip,controller):
-		global p_id
-		p_id = clientServerInitConnect(dest_ip)
-		client_enter_ip = dest_ip
-		gs = recvGameState(dest_ip,dest_port,PACKET_SIZE)
-		if p_id != None:
-			controller.show_frame("GameStartPage")
+		def loadIP(dest_ip,controller):
+			global p_id
+			p_id = clientServerInitConnect(dest_ip)
+			client_enter_ip = dest_ip
+			gs = recvGameState(dest_ip,dest_port,PACKET_SIZE)
+			if p_id != None:
+				controller.show_frame("GameStartPage")
 
 
 
